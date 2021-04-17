@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <style type="text/css">
+        #containRes{
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div id="containRes">
+        <p:link outcome="index" value="Home" />
+        <p:spacer width="10"/>
+        <p:link outcome="inventory" value="Inventory" />
+        <p:spacer width="10"/>
+        <p:link outcome="store" value="Stores" />
+    </div>
+    <div class="p-d-flex">
+        <div class="p-mr-2">
+            <p:dataTable var="store" value="#{stockAppBean.storeList}">
+                <p:column headerText="Store Name">
+                    <h:outputText value="#{store.storeName}"/>
+                </p:column>
+                <p:column headerText="Location">
+                    <h:outputText value="#{store.location}"/>
+                </p:column>
+                <p:column headerText="Product List">
+                    <p:dataTable var="inventory" value="#{store.inventoryList}">
+                        <p:column>
+                            <h:outputText value="#{inventory.prodName}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+            </p:dataTable>
+        </div>
+        <div>
+            <h:form>
+                <div class="p-field" style="margin: 2em">
+                    <p:outputLabel for="prodname" style="margin-right: 1em">Product Name: </p:outputLabel>
+                    <p:inputText id="prodname" type="text" value="#{stockAppBean.prodName}"/>
+                    <p:message for="@previous"/>
+                </div>
+                <div id="containRes">
+                    <div class="p-field" style="margin: 2em">
+                        <p:commandButton style="margin: 2em" type="submit"
+                                         action="#{stockAppBean.addInvToStore}"
+                                         value="Add Product" ajax="false" validateClient="true"
+                                         icon="pi pi-check" iconPos="right"/>
+                    </div>
+                    <div class="p-field" style="margin: 2em">
+                        <p:commandButton style="margin: 2em" type="submit"
+                                         action="#{stockAppBean.delInvFromStore}"
+                                         value="Remove Product" ajax="false" validateClient="true"
+                                         icon="pi pi-check" iconPos="right"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+</h:body>
+</html>

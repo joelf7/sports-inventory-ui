@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <style type="text/css">
+        #containRes{
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</h:head>
+<h:body>
+    <div id="containRes">
+        <p:link outcome="index" value="Home" />
+        <p:spacer width="10"/>
+        <p:link outcome="inventory" value="Inventory" />
+        <p:spacer width="10"/>
+        <p:link outcome="store" value="Stores" />
+    </div>
+    <div class="p-d-flex">
+        <div class="p-mr-2">
+            <p:dataTable var="inventory" value="#{inventoryAppBean.inventoryList}">
+                <p:column headerText="Product Name">
+                    <h:outputText value="#{inventory.prodName}"/>
+                </p:column>
+                <p:column headerText="Sport">
+                    <h:outputText value="#{inventory.sport}"/>
+                </p:column>
+                <p:column headerText="Quantity">
+                    <h:outputText value="#{inventory.quantity}"/>
+                </p:column>
+                <p:column headerText="Latest Date">
+                    <h:outputText value="#{inventory.latestDate}"/>
+                </p:column>
+                <p:column headerText="Store">
+                    <h:outputText value="#{inventory.store.storeName}"/>
+                </p:column>
+            </p:dataTable>
+        </div>
+        <div>
+            <h:form>
+                <div class="p-field" style="margin: 2em">
+                    <p:outputLabel for="prodname" style="margin-right: 1em">Product Name: </p:outputLabel>
+                    <p:inputText id="prodname" type="text" value="#{inventoryAppBean.prodName}"/>
+                    <p:message for="@previous"/>
+                </div>
+                <div class="p-field" style="margin: 2em">
+                    <p:outputLabel for="sport" style="margin-right: 1em">Sport: </p:outputLabel>
+                    <p:inputText id="sport" type="text" value="#{inventoryAppBean.sport}"/>
+                    <p:message for="@previous"/>
+                </div>
+                <div class="p-field" style="margin: 2em">
+                    <p:outputLabel for="quantity" style="margin-right: 1em">Quantity: </p:outputLabel>
+                    <p:inputText id="quantity" type="text" value="#{inventoryAppBean.quantity}"/>
+                    <p:message for="@previous"/>
+                </div>
+                <div id="containRes">
+                    <div class="p-field" style="margin: 2em">
+                        <p:commandButton style="margin: 2em" type="submit" action="#{inventoryAppBean.addInventory}"
+                                         value="Add Product" ajax="false" validateClient="true"
+                                         icon="pi pi-check" iconPos="right"/>
+                    </div>
+                    <div class="p-field" style="margin: 2em">
+                        <p:commandButton style="margin: 2em" type="submit" action="#{inventoryAppBean.updateInventory}"
+                                         value="Update Product" ajax="false" validateClient="true"
+                                         icon="pi pi-check" iconPos="right"/>
+                    </div>
+                    <div class="p-field" style="margin: 2em">
+                        <p:commandButton style="margin: 2em" type="submit" action="#{inventoryAppBean.delInventory}"
+                                         value="Delete Product" ajax="false" validateClient="true"
+                                         icon="pi pi-check" iconPos="right"/>
+                    </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+
+</h:body>
+</html>
